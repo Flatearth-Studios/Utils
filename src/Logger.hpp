@@ -1,11 +1,12 @@
-#ifndef _BOUNCING_BALLS_CORE_LOGGER_HPP
-#define _BOUNCING_BALLS_CORE_LOGGER_HPP
+#ifndef _GENERIC_LOGGER_HPP
+#define _GENERIC_LOGGER_HPP
 
 #include "Defines.hpp"
 
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
+#include <cstdio>
 #include <cstring>
 #include <filesystem>
 #include <format>
@@ -343,4 +344,4 @@ private:
 #define ENABLE_FILE_LOGGING(enable)                                            \
   bb::core::Logger::Self().EnableFileLogging(enable);
 
-#endif // _BOUNCING_BALLS_CORE_LOGGER_HPP
+#endif // _GENERIC_LOGGER_HPP

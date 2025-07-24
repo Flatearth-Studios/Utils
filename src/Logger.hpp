@@ -20,13 +20,13 @@
 
 namespace bb::core {
 
-static constexpr string COLOR_GREY = "\x1b[90m";
-static constexpr string COLOR_BLUE = "\x1b[34m";
-static constexpr string COLOR_GREEN = "\x1b[32m";
-static constexpr string COLOR_YELLOW = "\x1b[33m";
-static constexpr string COLOR_RED = "\x1b[31m";
-static constexpr string COLOR_FATAL = "\x1b[41;97m";
-static constexpr string COLOR_RESET = "\x1b[0m";
+inline constexpr std::string_view COLOR_GREY = "\x1b[90m";
+inline constexpr std::string_view COLOR_BLUE = "\x1b[34m";
+inline constexpr std::string_view COLOR_GREEN = "\x1b[32m";
+inline constexpr std::string_view COLOR_YELLOW = "\x1b[33m";
+inline constexpr std::string_view COLOR_RED = "\x1b[31m";
+inline constexpr std::string_view COLOR_FATAL = "\x1b[41;97m";
+inline constexpr std::string_view COLOR_RESET = "\x1b[0m";
 
 using AtomicBool = std::atomic<bool>;
 
@@ -168,7 +168,6 @@ private:
   inline string format(LogLevel level, std::source_location where,
                        std::string_view fmt, bool logToFile,
                        const Args &...args) noexcept {
-    std::lock_guard<std::mutex> guard(_mutex);
     auto payload = std::vformat(fmt, std::make_format_args(args...));
     const char *color = LevelColour(level);
     const char *reset = COLOR_RESET.c_str();
@@ -343,5 +342,8 @@ private:
 
 #define ENABLE_FILE_LOGGING(enable)                                            \
   bb::core::Logger::Self().EnableFileLogging(enable);
+
+#define SET_LOG_FILE(filepath)                                                 \
+  bb::core::Logger::Self().SetLogfilePath(filepath);
 
 #endif // _GENERIC_LOGGER_HPP
